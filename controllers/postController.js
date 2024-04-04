@@ -16,7 +16,6 @@ const createPost = async (req,res) => {
         res.status(400).send({success:false,msg:error.message})
     }
 }
-
 const getPost = async (req,res) => {
     try{
       const posts = await Post.find({})
@@ -32,5 +31,21 @@ const getPost = async (req,res) => {
         })
     }
 }
+const deletePost = async (req,res) => {
+    try{
+        const id = req.params.id
+        const deletePost = await Post.deleteOne({_id:id})
+        res.status(200).send({
+            success: true,
+            msg: 'Post supprimer avec success',
+            data: deletePost
+        })
+    }catch (error) {
+        res.status(400).send({
+            success:false,
+            msg:error.message
+        })
+    }
+}
 
-module.exports = {createPost,getPost}
+module.exports = {createPost,getPost,deletePost}

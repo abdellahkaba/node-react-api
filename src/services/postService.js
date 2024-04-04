@@ -12,6 +12,10 @@ class Post {
         }
         return axios.post(url,formData,config)
     }
+    getPost() {
+        const url = "http://localhost:8000/api/get-post"
+        return axios.get(url)
+    }
 }
 
 export default new Post()

@@ -4,6 +4,7 @@ import postService from '../services/postService'
 export default function ShowComponent() {
 
     const [posts,setPosts] = useState({})
+    const [message,setMessage] = useState('')
 
     const fetchPosts = async () => {
         setPosts(await postService.getPost())
@@ -11,6 +12,22 @@ export default function ShowComponent() {
     useEffect(() => {
         fetchPosts()
     },[])
+
+    const deletePost = async (id,e) => {
+      var response = await  postService.deletePost(id)
+      if(response.data.success == true){
+        alert(response.data.msg)
+        document.getElementById(id).parentElement.parentElement.remove()
+        setMessage('Post supprimer avec success')
+    }else{
+        setMessage('Post non supprimer')
+    }
+    
+        setTimeout(() => {
+            setMessage('')
+        },3000)
+    }
+
     console.log(posts)
     return <>
         <div className='App'>
@@ -35,6 +52,12 @@ export default function ShowComponent() {
                                             <td>
                                                 <img src={'http://localhost:8000/api/images/'+post.image} style={{width: '100px',height:'100px'}} />
                                             </td>
+                                            <td>
+                                                <button
+                                                id={post._id}
+                                                onClick={(e)=> deletePost(post._id,e)}
+                                                 >Delete</button>
+                                            </td>
                                         </tr>
                                     )
                                 )
@@ -43,6 +66,7 @@ export default function ShowComponent() {
                     </table>
                 )
             }
+            <p>{message}</p>
         </div>
     </>
 }

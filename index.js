@@ -11,7 +11,7 @@ app.use(cors({
 
 connectDB
 
-const  post_route = require('./routes/router')
+const post_route = require('./routes/router')
 app.use('/api',post_route)
 
 app.listen(port,function (){

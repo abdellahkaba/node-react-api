@@ -1,18 +1,19 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-
+const connectDB = require('./db/db.js')
+const dotenv = require('dotenv').config()
+const port = 8000
 
 app.use(cors({
     origin: "*"
 }))
 
-const mongoose = require('mongoose')
-mongoose.connect("mongodb+srv://abdellah:Kaba987k@cluster0.gyjh5xk.mongodb.net/post-db")
+connectDB
 
 const  post_route = require('./routes/router')
 app.use('/api',post_route)
 
-app.listen(8000,function (){
+app.listen(port,function (){
     console.log('Server lance')
 })

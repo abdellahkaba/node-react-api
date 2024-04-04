@@ -20,7 +20,12 @@ const storage = multer.diskStorage({
         cb(null, name);
     }
 });
+
 const upload = multer({storage:storage})
 
 post_route.post('/create-post', upload.single('image') , postController.createPost)
+post_route.get('/get-post',postController.getPost)
+
+
+
 module.exports = post_route;

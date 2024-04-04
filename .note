@@ -1,3 +1,4 @@
 npx create-react-app mon-app
 npm i react-router-dom
 npm i axios
+npm install react-bootstrap bootstrap

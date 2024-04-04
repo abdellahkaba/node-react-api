@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import postService from '../services/postService'
+import UpdateComponent from './UpdateComponent'
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 export default function ShowComponent() {
 
@@ -40,6 +42,8 @@ export default function ShowComponent() {
                                 <th>Title</th>
                                 <th>Date</th>
                                 <th>Image</th>
+                                <th>Delete</th>
+                                <th>Update</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,6 +61,9 @@ export default function ShowComponent() {
                                                 id={post._id}
                                                 onClick={(e)=> deletePost(post._id,e)}
                                                  >Delete</button>
+                                            </td>
+                                            <td>
+                                                <UpdateComponent />
                                             </td>
                                         </tr>
                                     )

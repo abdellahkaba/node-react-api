@@ -18,10 +18,17 @@ export default function CreateComponet() {
        formData.append('image',image)
 
        const response = await postService.create(formData)
-      console.log(response)
 
-         
+        if(response.data.success == true){
+            setMessage('Post creee avec success')
+        }else{
+            setMessage('Post non cree')
+        }
         
+        setTimeout(function(){
+            setMessage('')
+        },2000)
+
        e.target.reset()
        
     }

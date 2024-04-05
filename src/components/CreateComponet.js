@@ -44,7 +44,7 @@ export default function CreateComponet() {
                     onChange={(e) => setTitle(e.target.value)}
                     required 
                 />
-                <br></br>
+                <br/><br/>
                 <input 
                     type='date' 
                     value={date}
@@ -52,7 +52,7 @@ export default function CreateComponet() {
                     onChange={(e) => setDate(e.target.value)}
                     required 
                 />
-                <br></br>
+                <br/><br/>
                 <input 
                     type='file' 
                    // value={image}
@@ -60,7 +60,7 @@ export default function CreateComponet() {
                     onChange={(e) => setImage(e.target.files[0])}
                     required 
                 /> 
-                <br></br>
+                <br/><br/>
                 <button>Submit</button>
             </form>
 

@@ -63,7 +63,7 @@ export default function ShowComponent() {
                                                  >Delete</button>
                                             </td>
                                             <td>
-                                                <UpdateComponent />
+                                                <UpdateComponent id={post._id} title={post.title} date={post.date}/>
                                             </td>
                                         </tr>
                                     )

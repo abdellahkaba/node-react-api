@@ -8,7 +8,7 @@ const app = express()
 app.use(cookieParser())
 userRoute.post("/register", userController.register)
 userRoute.post('/login', userController.login)
-userRoute.get('/user', userController.getUser)
-
+userRoute.get('/cookie', userController.getUserCookie)
+userRoute.post('/logout',userController.logout)
 
 module.exports = userRoute

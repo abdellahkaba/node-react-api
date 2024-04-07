@@ -55,19 +55,37 @@ const login = async (req,res) => {
     })
 }
 
-const getUser = async (req,res) => {
-    const cookie = req.cookies['jwt']
-   const clains = jwt.verify(cookie,'secretKey')
+const getUserCookie = async (req,res) => {
+   try {
+       const cookie = req.cookies['jwt']
+       const clains = jwt.verify(cookie,'secretKey')
 
-    if (!clains){
-        return res.status(401).send({
-            message: 'UnAuthenticated'
-        })
-    }
+       if (!clains){
+           return res.status(401).send({
+               message: 'UnAuthenticated'
+           })
+       }
 
-    const user = await User.findOne({_id: clains._id})
-    const {password, ...data} = await user.toJSON()
-    res.send(data)
+       const user = await User.findOne({_id: clains._id})
+       const {password, ...data} = await user.toJSON()
+       res.send(data)
+   }catch (err) {
+       res.status(400).send({
+           message: err.message
+       })
+   }
 }
 
-module.exports = {register,login,getUser}
+const logout = async (req,res) => {
+    // res.clearCookie('jwt',{
+    //     sameSite:"none",
+    //     secure:true
+    // }).status(200).json("user has been logout !")
+
+    res.cookie('jwt', '', {maxAge: 0})
+    res.status(200).send({
+        message: 'user has been logout'
+    })
+}
+
+module.exports = {register,login,getUserCookie,logout}

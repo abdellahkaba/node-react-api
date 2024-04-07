@@ -28,4 +28,25 @@ const register = async (req,res) => {
     }
 }
 
-module.exports = {register}
+const login = async (req,res) => {
+    const email = req.body.email
+    const user = await User.findOne({email: email})
+
+    if (!user) return res.status(404).send({
+        message: "User not found"
+    })
+    //Verification de mot de pass
+    const password = req.body.password
+    const isPassword = await bcrypt.compareSync(password,user.password)
+    if (!isPassword) return res.status(400).send({
+        message: "Invalid credential !"
+    })
+
+    res.status(200).send({
+        message: "User connected",
+        data: user
+    })
+}
+
+
+module.exports = {register,login}

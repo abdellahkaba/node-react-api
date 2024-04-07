@@ -6,3 +6,4 @@ npm i cors
 npm i body-parser
 npm i nodemon
 npm i bcryptjs
+npm i jsonwebtoken

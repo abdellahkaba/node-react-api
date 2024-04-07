@@ -1,5 +1,5 @@
 const express = require('express')
-const post_route = express()
+const post_route = express.Router()
 
 const bodyParser = require('body-parser')
 post_route.use(bodyParser.json())
@@ -22,7 +22,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({storage:storage})
-
 post_route.post('/create-post', upload.single('image') , postController.createPost)
 post_route.get('/get-post',postController.getPost)
 post_route.delete('/delete-post/:id',postController.deletePost)

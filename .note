@@ -5,3 +5,4 @@ npm i multer
 npm i cors
 npm i body-parser
 npm i nodemon
+npm i bcryptjs

@@ -9,10 +9,15 @@ app.use(cors({
     origin: "*"
 }))
 
+
 connectDB
 
 const post_route = require('./routes/router')
+const user_route = require('./routes/userRouter')
+app.use(express.json())
+app.use('/api',user_route)
 app.use('/api',post_route)
+
 
 app.listen(port,function (){
     console.log('Server lance')

@@ -45,7 +45,13 @@ const login = async (req,res) => {
 
     //token prend deux parameters
     const token = jwt.sign({_id:user._id}, "secretKey")
-    res.send(token)
+    res.cookie('access_token', token,{
+        httpOnly: true,
+        maxAge: 24 + 60 + 60 + 100 // 1 jour
+    })
+    res.status(200).send({
+        message: 'User connected !'
+    })
 }
 
 

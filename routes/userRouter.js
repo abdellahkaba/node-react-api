@@ -10,5 +10,5 @@ userRoute.post("/register", userController.register)
 userRoute.post('/login', userController.login)
 userRoute.get('/cookie', userController.getUserCookie)
 userRoute.post('/logout',userController.logout)
-
+userRoute.get('/user', userController.getAllUser)
 module.exports = userRoute

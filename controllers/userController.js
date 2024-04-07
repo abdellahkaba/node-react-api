@@ -88,4 +88,20 @@ const logout = async (req,res) => {
     })
 }
 
-module.exports = {register,login,getUserCookie,logout}
+const getAllUser = async (req,res) => {
+    try {
+        const users = await User.find({})
+        res.status(200).send({
+            success: true,
+            message: 'All User',
+            data: users
+
+        })
+    }catch (err) {
+        res.status(400).send({
+          message: err.message
+        })
+    }
+}
+
+module.exports = {register,login,getUserCookie,logout,getAllUser}

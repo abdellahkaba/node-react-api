@@ -1,6 +1,7 @@
 const User = require('../models/userModel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
 const register = async (req,res) => {
 
     try{
@@ -45,14 +46,28 @@ const login = async (req,res) => {
 
     //token prend deux parameters
     const token = jwt.sign({_id:user._id}, "secretKey")
-    res.cookie('access_token', token,{
+    res.cookie('jwt', token,{
         httpOnly: true,
-        maxAge: 24 + 60 + 60 + 100 // 1 jour
+        maxAge: 24 * 60 * 60 * 1000 // 1 jour
     })
     res.status(200).send({
         message: 'User connected !'
     })
 }
 
+const getUser = async (req,res) => {
+    const cookie = req.cookies['jwt']
+   const clains = jwt.verify(cookie,'secretKey')
 
-module.exports = {register,login}
+    if (!clains){
+        return res.status(401).send({
+            message: 'UnAuthenticated'
+        })
+    }
+
+    const user = await User.findOne({_id: clains._id})
+    const {password, ...data} = await user.toJSON()
+    res.send(data)
+}
+
+module.exports = {register,login,getUser}

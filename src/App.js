@@ -1,25 +1,41 @@
-import logo from './logo.svg';
+import {  useQuery } from '@tanstack/react-query';
 import './App.css';
+import axios from 'axios';
+
+
+
+
 
 function App() {
+
+   const {data, error, isLoading} = useQuery({
+      queryKey: ['posts'],
+      queryFn: () => axios.get(`http://localhost:8000/api/get-post`).then((res) => res.data.data)
+   })
+
+   
+
+   if (error) return <div>Il y'a une Erreur</div>
+   if (isLoading) return <div>Loading</div>
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+
+       <div>
+       {data && data.map((post, index) => (
+          <div 
+            key={index}>{post._id}
+            <p>{post.title}</p>
+            <p>{post.date}</p>
+
+          </div>
+          
+       ))}
+       </div>
     </div>
-  );
+  )
 }
 
 export default App;
+ 
